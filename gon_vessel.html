@@ -5,7 +5,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet"> 
         <script src="./data.js"></script>
         <link href="./style.css" rel="stylesheet">
-        <title>GON</title>
+        <title>GON - VESSEL</title>
         <script>
             let randomArray = [];
             let index = 0;
@@ -23,7 +23,7 @@
 
             let isNormal = true;
 
-            var cPushArray = new Array();
+            var cPushArray = new Array(); 
             var cStep = -1;
 
             
@@ -85,13 +85,12 @@
             }
 
             const init = () => {
+                cPushArray = [];
+                cStep = -1;
                 imageShow();
                 initCheck();
                 increaseNum();
                 $('.gonText').empty();
-                cPushArray = new Array();
-                cStep = -1;
-                cPush();
             }
 
             const checkClick = (event, value) => {
@@ -120,7 +119,9 @@
             }
 
             function cUndo() {
+               
                 if(isNormal === false){
+                     
                     if (cStep > 0) {
                         cStep--;
                         var canvasPic = new Image();
@@ -131,7 +132,9 @@
             }
 
             function cRedo() {
+               
                 if(isNormal === false){
+                     
                     if (cStep < cPushArray.length-1) {
                         cStep++;
                         var canvasPic = new Image();
@@ -150,6 +153,8 @@
                     ctx.drawImage(img, 0, 0, 1024, 1024);
                     ctx.lineWidth = 2;
                     ctx.strokeStyle = "red";
+                    cStep++;
+                    cPushArray.push(document.getElementById('imageCanvas').toDataURL());
                 }
             }
 
@@ -180,7 +185,7 @@
 
             function mouseUp(e) {
                 drawing = false;
-                // cPush();
+                if(!isNormal)cPush();
             }
             
             function mouseOut(e) {
@@ -413,7 +418,7 @@
         <div class="mainPage test1">
             <div class="left">
                 <div class="title">
-                    <div class="titleText">GON</div>
+                    <div class="titleText">GON - VESSEL</div>
                     <div class="help">?</div>
                 </div>
                 <div class="ongoingCase"></div>
@@ -453,7 +458,7 @@
         </div>
         <div class="infoPage">
             <div class="formWrap">
-                <div class="infoTitleText">GON</div>
+                <div class="infoTitleText">GON - VESSEL</div>
                 <div class="infoSubTitleText">검사자 정보</div>
                 <div class="formRow">
                     <div class="formTitle">이름</div>
