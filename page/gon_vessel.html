@@ -172,7 +172,7 @@
             function mouseDown(e) {
                 startX = e.offsetX;
                 startY = e.offsetY;
-                drawing = true;
+                e.which === 1 ? drawing = true : drawing = false;
             }
             
             function mouseMove(e) {
