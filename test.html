@@ -270,112 +270,6 @@
                 }
             }
 
-            // function resiClick(event, value){
-            //     resi = value;
-            //     $('.formcheck.resiCheck > div').removeClass('formcheckChecked');
-            //     if(event.target.classList[0] === 'residentCheck'){
-            //         $('.residentCheck').addClass('formcheckChecked');
-            //         $('.yearWrap1').show();
-            //         $('.yearWrap2').hide();
-            //         deptOption(true)
-            //     }else{
-            //         $('.specialistCheck').addClass('formcheckChecked');
-            //         $('.yearWrap1').hide();
-            //         $('.yearWrap2').show();
-            //         deptOption(false)
-            //     }
-            // }
-
-            // function yearClick(event, value){
-            //     resiyear = value;
-            //     $('.formcheck.resiyearCheck > div').removeClass('formcheckChecked');
-            //     if(event.target.classList[0] === 'resi1Check'){
-            //         $('.resi1Check').addClass('formcheckChecked');
-            //     }else if(event.target.classList[0] === 'resi2Check'){
-            //         $('.resi2Check').addClass('formcheckChecked');
-            //     }else if(event.target.classList[0] === 'resi3Check'){
-            //         $('.resi3Check').addClass('formcheckChecked');
-            //     }else if(event.target.classList[0] === 'resi4Check'){
-            //         $('.resi4Check').addClass('formcheckChecked');
-            //     }
-            // }
-
-            // function deptOption(isResi){
-            //     $('.select').empty();
-            //     if(isResi){
-            //         $('.select').append('<option value="그 외 기타" selected>그 외 기타</option>');
-            //     }else{
-            //         $('.select').append('<option value="각막, 백내장" selected>각막, 백내장</option><option value="녹내장">녹내장</option><option value="망막, 유리체질환" >망막, 유리체질환</option><option value="사시, 소아" >사시, 소아</option><option value="안성형" >안성형</option><option value="그 외 기타" >그 외 기타</option>');
-            //     }
-            // }
-
-            // const sexClick = (event, value) => {
-            //     $('.sexCheck > div').removeClass('formcheckChecked');
-            //     if(value === '남'){
-            //         $('.maleCheck').addClass('formcheckChecked');
-            //         saveData.info.sex = '남';
-            //     }else{
-            //         $('.femaleCheck').addClass('formcheckChecked');
-            //         saveData.info.sex = '여';
-            //     }
-            // }
-
-            // const infoValidateCheck = () => {
-            //     if($('.name').val() === ''){
-            //         alert('이름을 입력해 주세요.');
-            //         return false;
-            //     }
-            //     if($('.ageInput').val().length !== 8){
-            //         alert('생년월일 8자를 입력해주세요.');
-            //         return false;
-            //     }
-            //     let ageY = Number($('.ageInput').val().slice(0,4));
-            //     let ageM = Number($('.ageInput').val().slice(4,6));
-            //     let ageD = Number($('.ageInput').val().slice(6));
-                
-            //     if(ageY < 1900 || ageY > 2023){
-            //         alert('생년월일의 연도를 확인해주세요.');
-            //         return false;
-            //     }
-            //     if(ageM < 1 || ageM > 12){
-            //         alert('생년월일의 월을 확인해주세요.');
-            //         return false;
-            //     }
-            //     if(ageD < 1 || ageD > 31){
-            //         alert('생년월일의 일을 확인해주세요.');
-            //         return false;
-            //     }
-            //     if(!$('.maleCheck').hasClass('formcheckChecked') && !$('.femaleCheck').hasClass('formcheckChecked')){
-            //         alert('성별을 선택해 주세요.');
-            //         return false;
-            //     }
-            //     if(resi === ''){
-            //         alert('전공의 여부를 선택해주세요.');
-            //         return false;
-            //     }
-            //     if(resi === '전공의'){
-            //         if(resiyear === ''){
-            //             alert('경력을 선택해주세요.');
-            //             return false;
-            //         }
-            //     }else{
-            //         if($('.yearInput').val() === ''){
-            //             alert('취득년도를 입력해주세요.');
-            //             return false;
-            //         }
-            //     }
-            //     if($('.formRow > select').val() === ''){
-            //         alert('분과를 선택해 주세요.');
-            //         return false;
-            //     }
-            //     saveData.info.name = $('.name').val();
-            //     saveData.info.age = $('.ageInput').val();
-            //     saveData.info.resi = resi;
-            //     saveData.info.resiyear = resi === '전공의' ? resiyear : $('.yearInput').val();
-            //     saveData.info.dept = $('.select').val();
-            //     return true;
-            // }
-
             const startClick = () => {
                 if(infoValidateCheck()){
                     $('.infoPage').hide();
@@ -388,35 +282,10 @@
             const showEndPage = () => {
                 $('.mainPage').hide();
                 $('.endPage').css('display', 'flex');
-                // var today = new Date();
-
-                // var year = today.getFullYear();
-                // var month = ('0' + (today.getMonth() + 1)).slice(-2);
-                // var day = ('0' + today.getDate()).slice(-2);
-
-                // var dateString = year + '-' + month  + '-' + day;
-
-                // dataDownload(JSON.stringify(saveData), dateString +'_'+ saveData.info.name + '_gonvessel.mvl', 'json');
+                var a = document.createElement("a");
+                a.href = "index2.html"
+                a.click();
             }
-
-            // const dataDownload = (content, fileName, contentType) => {
-            //     var a = document.createElement("a");
-            //     var file = new Blob([content], {type: contentType});
-            //     a.href = URL.createObjectURL(file);
-            //     a.download = fileName;
-            //     a.click();
-            // }
-
-            // function DownloadCanvasAsImage(){
-            //     let downloadLink = document.createElement('a');
-            //     downloadLink.setAttribute('download', data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality);// + '_' + data[randomArray[index]].disease);
-                
-            //     canvas.toBlob(function(blob) {
-            //         let url = URL.createObjectURL(blob);
-            //         downloadLink.setAttribute('href', url);
-            //         downloadLink.click();
-            //     });
-            // }
 
             function endClick(){
                 if(confirm('테스트를 종료하시겠습니까 ?')){
@@ -451,9 +320,9 @@
                     <button onclick="cUndo()">UNDO</button>
                     <button onclick="cRedo()">REDO</button>
                 </div>
-                <div class="buttonWrap">
+                <!-- <div class="buttonWrap">
                     <button>NEXT</button>
-                </div>
+                </div> -->
                 <div class="buttonWrap2">
                     <button>테스트 종료</button>
                 </div>
