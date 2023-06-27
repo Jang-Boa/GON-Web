@@ -3,9 +3,9 @@
     <head>
         <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet"> 
-        <script src="../wo_vessel.js"></script>
-        <link href="../style.css" rel="stylesheet">
-        <title>GON - INPAINTING</title>
+        <script src="./w_vessel.js"></script>
+        <link href="./test_style.css" rel="stylesheet">
+        <title>GON - TEST</title>
         <script>
             let randomArray = [];
             let index = 0;
@@ -55,6 +55,7 @@
                 })
 
                 $('.buttonWrap > button').click(nextClick);
+                $('.buttonWrap2 > button').click(endClick);
                 $('.help').mouseover(showNotice);
                 $('.help').mouseout(hideNotice);
                 $('.startBtnWrap > button').click(startClick);
@@ -151,7 +152,7 @@
                 canvas.width = 1024;
                 canvas.height = 1024;
                 
-                img.src = "../wo_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease +'.png';
+                img.src = "./w_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease +'.png';
                 img.onload = function(){
                     ctx.drawImage(img, 0, 0, 1024, 1024);
                     ctx.lineWidth = 2;
@@ -203,9 +204,10 @@
                 }
             }
 
+
             const nextClick = () => {
                 if(validateCheck()){
-                    let pid = data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease;
+                    let pid = data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease;
                     doneDraw();
                     saveData.result[pid]['time'] = Date.now();
                     DownloadCanvasAsImage()
@@ -232,13 +234,13 @@
 
             const initSaveData = () => {
                 for(var i = 0; i<data.length; i++){
-                    var key = data[randomArray[i]].pid + '_' + data[randomArray[i]].laterality + '_' + data[randomArray[i]].disease;
+                    var key = data[randomArray[i]].pid + '_' + data[randomArray[i]].laterality  + '_' + data[randomArray[i]].disease;
                     saveData.result[key] = {'value':'', 'time': ''};
                 }
             }
 
             const validateCheck = () => {
-                let pid = data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease;
+                let pid = data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease;
                 if(saveData.result[pid]['value'] === ''){
                     return false;
                 }else{
@@ -254,7 +256,7 @@
                     case 'normal':
                         isNormal = true;
                         $('.gonText').empty();
-                        canvasPic.src = "../wo_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease + '.png';
+                        canvasPic.src = "../w_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease + '.png';
                         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0, 1024, 1024); }
                         break;
                     case 'gon':
@@ -394,7 +396,7 @@
 
                 var dateString = year + '-' + month  + '-' + day;
 
-                dataDownload(JSON.stringify(saveData), dateString +'_'+ saveData.info.name + '_goninpaint.mvl', 'json');
+                dataDownload(JSON.stringify(saveData), dateString +'_'+ saveData.info.name + '_gonvessel.mvl', 'json');
             }
 
             const dataDownload = (content, fileName, contentType) => {
@@ -407,7 +409,7 @@
 
             function DownloadCanvasAsImage(){
                 let downloadLink = document.createElement('a');
-                downloadLink.setAttribute('download', data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality);//  + '_' + data[randomArray[index]].disease);
+                downloadLink.setAttribute('download', data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality);// + '_' + data[randomArray[index]].disease);
                 
                 canvas.toBlob(function(blob) {
                     let url = URL.createObjectURL(blob);
@@ -416,13 +418,21 @@
                 });
             }
 
+            function endClick(){
+                if(confirm('테스트를 종료하시겠습니까 ?')){
+                    var a = document.createElement("a");
+                    a.href = "index2.html"
+                    a.click();
+                }
+            }
+
         </script>
     </head>
     <body>
         <div class="mainPage test1">
             <div class="left">
                 <div class="title">
-                    <div class="titleText">GON - INPAINTING</div>
+                    <div class="titleText">GON - TEST</div>
                     <div class="help">?</div>
                 </div>
                 <div class="ongoingCase"></div>
@@ -444,11 +454,15 @@
                 <div class="buttonWrap">
                     <button>NEXT</button>
                 </div>
+                <div class="buttonWrap2">
+                    <button>테스트 종료</button>
+                </div>
                 <div class="hoverNotice">
                     <div class="hoverNoticeTitle">공지 사항</div>
                     <div class="hoverNoticeText">
                         - NORMAL 선택시 <span class="redPoint">그리기 기능이 동작하지 않습니다.</span><br>
                         - GON 선택 후 <span class="redPoint">영상에 직접 그리기가 가능합니다.</span><br>
+                        - <span class="redPoint">클릭</span>을 통해 line 그리기가 가능 하며 <span class="redPoint">더블 클릭</span>으로 해당 line 그리기를 종료 할 수 있습니다.</span><br>
                         - <span class="redPoint">UNDO 버튼 혹은 crtl + z</span> 로 영상에 그린 그림의 undo를 할 수 있습니다.<br>
                         - <span class="redPoint">REDO 버튼 혹은 crtl + y</span> 로 영상에 그린 그림의 redo를 할 수 있습니다.
                     </div>
@@ -459,63 +473,6 @@
                     <canvas id="imageCanvas" width="800" height="800"></canvas>
                     <div class="isDrawing">NOW DRAWING</div>
                 </div>
-            </div>
-        </div>
-        <div class="infoPage">
-            <div class="formWrap">
-                <div class="infoTitleText">GON - INPAINTING</div>
-                <div class="infoSubTitleText">검사자 정보</div>
-                <div class="formRow">
-                    <div class="formTitle">이름</div>
-                    <input type="text" class="name" placeholder="홍길동">
-                </div>
-                <div class="formRow">
-                    <div class="formTitle">생년월일</div>
-                    <input type="text" value="" placeholder="20000101" class="ageInput" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-                </div>
-                <div class="formRow">
-                    <div class="formTitle">성별</div>
-                    <div class="formcheck sexCheck">
-                        <div class="maleCheck" onclick="sexClick(event, '남')">남</div>
-                        <div class="femaleCheck" onclick="sexClick(event, '여')">여</div>
-                    </div>
-                </div>
-                <div class="infoSubTitleText lastTitle">업무 경력</div>
-                <div class="formcheck resiCheck">
-                    <div class="residentCheck" onclick="resiClick(event, '전공의')">전공의</div>
-                    <div class="specialistCheck" onclick="resiClick(event, '전문의')">전문의</div>
-                </div>
-                <div class="yearWrap1">
-                    <div class="formTitle">연차</div>
-                    <div class="formcheck resiyearCheck">
-                        <div class="resi1Check" onclick="yearClick(event, '1R')">1R</div>
-                        <div class="resi2Check" onclick="yearClick(event, '2R')">2R</div>
-                        <div class="resi3Check" onclick="yearClick(event, '3R')">3R</div>
-                        <div class="resi4Check" onclick="yearClick(event, '4R')">4R</div>
-                    </div>
-                </div>
-                <div class="yearWrap2">
-                    <div class="formTitle">취득년도</div>
-                    <div class="formInput felxForm">
-                        <input type="number" min="2000" class="yearInput" value="" placeholder="2000">
-                    </div>
-                </div>
-                
-                <div class="formTitle">분과</div>
-                <div class="formInput">
-                    <select class="select">
-                        <option value="" selected>선택</option>
-                    </select>
-                </div>
-                <div class="startBtnWrap">
-                    <button>검사 시작</button>
-                </div>
-            </div>
-        </div>
-        <div class="endPage">
-            <div class="textWrap">
-                검사가 완료 되었습니다.<br>
-                감사합니다.
             </div>
         </div>
     </body>

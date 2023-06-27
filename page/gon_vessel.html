@@ -34,6 +34,10 @@
                 addArray();
                 shuffle(randomArray);
 
+                window.oncontextmenu = function(){
+                    return false;
+                }
+
                 canvas = document.getElementById("imageCanvas");
                 ctx = canvas.getContext("2d");
                 saveData['info'] = {'name': '', 'age': '', 'sex': '', 'resi': '' , 'resiyear': '', 'dept': ''};
@@ -62,10 +66,8 @@
                     }
                 });
 
-                canvas.addEventListener("mousemove", function(e){ mouseMove(e) });
-                canvas.addEventListener("mousedown", function(e){ mouseDown(e) });
                 canvas.addEventListener("mouseup", function(e){ mouseUp(e) });
-                canvas.addEventListener("mouseout", function(e){ mouseOut(e) });
+                canvas.addEventListener("dblclick", function(e){ dblclick(e) });
             })
 
             const showNotice = (event) =>{
@@ -154,8 +156,40 @@
                     ctx.drawImage(img, 0, 0, 1024, 1024);
                     ctx.lineWidth = 2;
                     ctx.strokeStyle = "red";
+                    ctx.lineJoin = "round"
+                    ctx.lineCap = "round"
                     cStep++;
                     cPushArray.push(document.getElementById('imageCanvas').toDataURL());
+                }
+            }
+
+            function mouseUp(e){
+                if(e.which === 1){
+                    if(!isNormal){
+                        if(drawing === false){
+                            startX = e.offsetX;
+                            startY = e.offsetY;
+                            drawing = true;
+                            $('.isDrawing').show();
+                        }else{
+                            draw(e.offsetX, e.offsetY);
+                            startX = e.offsetX;
+                            startY = e.offsetY;
+                        }
+                    }
+                }
+            }
+
+            function dblclick(e){
+                doneDraw();
+            }
+
+            function doneDraw(){
+                if(drawing){
+                    drawing = false;
+                    startX, startY = 0;
+                    $('.isDrawing').hide();
+                    if(!isNormal)cPush();
                 }
             }
 
@@ -165,37 +199,15 @@
                     ctx.moveTo(startX, startY);
                     ctx.lineTo(curX, curY);
                     ctx.stroke();
+                    
                 }
-                
             }
 
-            function mouseDown(e) {
-                startX = e.offsetX;
-                startY = e.offsetY;
-                e.which === 1 ? drawing = true : drawing = false;
-            }
-            
-            function mouseMove(e) {
-                if(!drawing) return;
-                let curX = e.offsetX;
-                let curY = e.offsetY;
-                draw(curX, curY);
-                startX = curX;
-                startY = curY;
-            }
-
-            function mouseUp(e) {
-                drawing = false;
-                if(!isNormal)cPush();
-            }
-            
-            function mouseOut(e) {
-                drawing = false;
-            }
 
             const nextClick = () => {
                 if(validateCheck()){
                     let pid = data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease;
+                    doneDraw();
                     saveData.result[pid]['time'] = Date.now();
                     DownloadCanvasAsImage()
                     if(index === data.length-1){
@@ -446,6 +458,7 @@
             <div class="right">
                 <div class="imageWrap">
                     <canvas id="imageCanvas" width="800" height="800"></canvas>
+                    <div class="isDrawing">NOW DRAWING</div>
                 </div>
             </div>
         </div>
