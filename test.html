@@ -388,24 +388,24 @@
             const showEndPage = () => {
                 $('.mainPage').hide();
                 $('.endPage').css('display', 'flex');
-                var today = new Date();
+                // var today = new Date();
 
-                var year = today.getFullYear();
-                var month = ('0' + (today.getMonth() + 1)).slice(-2);
-                var day = ('0' + today.getDate()).slice(-2);
+                // var year = today.getFullYear();
+                // var month = ('0' + (today.getMonth() + 1)).slice(-2);
+                // var day = ('0' + today.getDate()).slice(-2);
 
-                var dateString = year + '-' + month  + '-' + day;
+                // var dateString = year + '-' + month  + '-' + day;
 
-                dataDownload(JSON.stringify(saveData), dateString +'_'+ saveData.info.name + '_gonvessel.mvl', 'json');
+                // dataDownload(JSON.stringify(saveData), dateString +'_'+ saveData.info.name + '_gonvessel.mvl', 'json');
             }
 
-            const dataDownload = (content, fileName, contentType) => {
-                var a = document.createElement("a");
-                var file = new Blob([content], {type: contentType});
-                a.href = URL.createObjectURL(file);
-                a.download = fileName;
-                a.click();
-            }
+            // const dataDownload = (content, fileName, contentType) => {
+            //     var a = document.createElement("a");
+            //     var file = new Blob([content], {type: contentType});
+            //     a.href = URL.createObjectURL(file);
+            //     a.download = fileName;
+            //     a.click();
+            // }
 
             // function DownloadCanvasAsImage(){
             //     let downloadLink = document.createElement('a');
