@@ -152,7 +152,7 @@
                 canvas.width = 1024;
                 canvas.height = 1024;
                 
-                img.src = "./w_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease +'.png';
+                img.src = "./test/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality + '_' + data[randomArray[index]].disease +'.png';
                 img.onload = function(){
                     ctx.drawImage(img, 0, 0, 1024, 1024);
                     ctx.lineWidth = 2;
