@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet"> 
         <style>
             html,body{
@@ -58,6 +59,13 @@
                 color: #fff;
                 font-size: 50px;
             }
+            .wrap > div.disabled {
+                background-color: #a0a0a0;
+                cursor: default;
+            }
+            .wrap > div.disabled > .startText{
+                background-color: #535353;
+            }
 
             @media (max-width: 1450px) {
                 .wrap{
@@ -72,29 +80,62 @@
             }
         </style>
         <script>
-            function vesselClick(event){
-                var a = document.createElement("a");
-                a.href = "page/gon_vessel.html"
-                a.click();
+            const pageSet = 0;
+            /*
+                0 = all abled
+                1 = second disabled
+                2 = fisrt disabled
+            */
+            $(document).ready(()=>{
+                if(pageSet === 1){
+                    $('.test2Wrap').addClass('disabled')
+                }else if(pageSet === 2){
+                    $('.test1Wrap').addClass('disabled')
+                }
+            });
+
+            function pageClick(event, page){
+                if(page === 1){
+                    vesselClick();
+                }else{
+                    inpaintingClick();
+                }
             }
-            function inpaintingClick(event){
-                var a = document.createElement("a");
-                a.href = "page/gon_inpainting.html"
-                a.click();
+
+            function vesselClick(){
+                if(pageSet === 1 || pageSet === 0){
+                    var a = document.createElement("a");
+                    a.href = "page/fisrtRound.html"
+                    a.click();
+                }else{
+                    alert("사용 할 수 없는 실험입니다.");   // disabled 된 검사시작 클릭시 뜨는 문구
+                }
+                
+            }
+
+            function inpaintingClick(){
+                if(pageSet === 2 || pageSet === 0){
+                    var a = document.createElement("a");
+                    a.href = "page/secondRound.html"
+                    a.click();
+                }else{
+                    alert("사용 할 수 없는 실험입니다.");   // disabled 된 검사시작 클릭시 뜨는 문구
+                }
+                
             }
             
         </script>
     </head>
     <body>
         <div class="wrap">
-            <div class="test1Wrap" onClick="vesselClick()">
-                <div class="gonText">GON</div>
-                <div class="versionText">VESSEL</div>
+            <div class="test1Wrap" onClick="pageClick(event, 1)">
+                <div class="gonText">First</div>
+                <div class="versionText">Round</div>
                 <div class="startText">검사시작</div>
             </div>
-            <div class="test2Wrap" onClick="inpaintingClick()">
-                <div class="gonText">GON</div>
-                <div class="versionText">INPAINTING</div>
+            <div class="test2Wrap" onClick="pageClick(event, 2)">
+                <div class="gonText">Second</div>
+                <div class="versionText">Round</div>
                 <div class="startText">검사시작</div>
             </div>
         </div>
