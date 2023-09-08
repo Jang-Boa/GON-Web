@@ -261,7 +261,7 @@
                     case 'normal':
                         isNormal = true;
                         $('.gonText').empty();
-                        canvasPic.src = "../w_vessel/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease + '.png';
+                        canvasPic.src = "./test/" + data[randomArray[index]].pid + '_' + data[randomArray[index]].laterality  + '_' + data[randomArray[index]].disease + '.png';
                         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0, 1024, 1024); }
                         break;
                     case 'gon':
